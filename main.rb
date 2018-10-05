@@ -11,13 +11,10 @@ class EvalDoc < Kramdown::Document
   def initialize(text, *opts)
     super(text, *opts)
     self.context = get_context
-  end
-
-  def eval_code
     self.root = scan_el(self.root)
-    self
   end
 
+  private
   def scan_el(el)
     new_children = []
     el.children.each do |child_el|
@@ -50,7 +47,6 @@ class EvalDoc < Kramdown::Document
     end
   end
 
-  private
   def blockquote_el(text)
     text_el = Kramdown::Element.new(:text, text)
     p_el = Kramdown::Element.new(:p)
@@ -63,7 +59,6 @@ end
 
 def main # bindingを隔離するため
   doc = EvalDoc.new(STDIN.read)
-  doc.eval_code
 
   puts ERB.new(File.read('./template.html.erb')).result(binding)
 end
