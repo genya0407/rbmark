@@ -1,14 +1,16 @@
 require 'kramdown'
 require 'erb'
 
-$global_binding = binding
+def get_context
+  binding
+end
 
 class EvalDoc < Kramdown::Document
   attr_accessor :context
 
   def initialize(text, *opts)
     super(text, *opts)
-    self.context = $global_binding
+    self.context = get_context
   end
 
   def eval_code

@@ -69,6 +69,8 @@
 
 <p><code>to_html</code> メソッドを実装すると、その結果が出力される。</p>
 
+<p><code>to_html</code> が存在しない場合、<code>to_s</code>と<code>inspect</code>を試す。</p>
+
 <div class="language-ruby highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Matrix</span> <span style="color:#777"># オープンクラス</span>
 <span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">to_html</span>
