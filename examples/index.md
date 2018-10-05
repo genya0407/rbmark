@@ -33,6 +33,8 @@ Matrix.identity(10)
 
 `to_html` メソッドを実装すると、その結果が出力される。
 
+`to_html` が存在しない場合、`to_s`と`inspect`を試す。
+
 ~~~ruby
 class Matrix # オープンクラス
   def to_html

@@ -59,7 +59,11 @@ class EvalDoc < Kramdown::Document
   end
 end
 
-@doc = EvalDoc.new(STDIN.read)
-@doc.eval_code
+def main # bindingを隔離するため
+  doc = EvalDoc.new(STDIN.read)
+  doc.eval_code
 
-puts ERB.new(File.read('./template.html.erb')).run
+  puts ERB.new(File.read('./template.html.erb')).result(binding)
+end
+
+main
