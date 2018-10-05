@@ -59,7 +59,6 @@ class EvalDoc < Kramdown::Document
 end
 
 doc = EvalDoc.new(STDIN.read)
-
 doc.eval_code
 
 puts <<-HTML
