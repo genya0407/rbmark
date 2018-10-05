@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'erb'
 
 $global_binding = binding
 
@@ -58,33 +59,7 @@ class EvalDoc < Kramdown::Document
   end
 end
 
-doc = EvalDoc.new(STDIN.read)
-doc.eval_code
+@doc = EvalDoc.new(STDIN.read)
+@doc.eval_code
 
-puts <<-HTML
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css' rel='stylesheet' type='text/css' />
-    <style>
-      article.markdown-body {
-        box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 45px;
-      }
-
-      span.line-numbers {
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <article class='markdown-body'>
-      #{doc.to_html}
-    </article>
-  </body>
-</html>
-HTML
+puts ERB.new(File.read('./template.html.erb')).run
