@@ -11,6 +11,14 @@ converted = array.map { |e| e * 100 }
 converted # 最後の行が出力される
 ~~~
 
+標準出力も表示される
+
+~~~ruby
+puts :hoge
+
+"fuga\npiyo".inspect
+~~~
+
 ### ブロックは全部同じスコープ
 
 先程定義した変数`converted`が以下でも使える。
@@ -32,8 +40,6 @@ Matrix.identity(10)
 ### to_htmlを実装する
 
 `to_html` メソッドを実装すると、その結果が出力される。
-
-`to_html` が存在しない場合、`to_s`と`inspect`を試す。
 
 ~~~ruby
 class Matrix # オープンクラス

@@ -33,9 +33,24 @@
 </pre></div>
 </div>
 </div>
-<blockquote>
-  <p>[100, 200, 300, 400]</p>
-</blockquote>
+<p>  <pre><code>=&gt; [100, 200, 300, 400]
+</code></pre>
+</p>
+
+<p>標準出力も表示される</p>
+
+<div class="language-ruby highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>puts <span style="color:#A60">:hoge</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fuga</span><span style="color:#b0b">\n</span><span style="color:#D20">piyo</span><span style="color:#710">&quot;</span></span>.inspect
+</pre></div>
+</div>
+</div>
+<p>  <pre><code>hoge
+
+=&gt; "fuga\npiyo"
+</code></pre>
+</p>
 
 <h3 id="section-2">ブロックは全部同じスコープ</h3>
 
@@ -46,9 +61,9 @@
 </pre></div>
 </div>
 </div>
-<blockquote>
-  <p>[1, 2, 3, 4]</p>
-</blockquote>
+<p>  <pre><code>=&gt; [1, 2, 3, 4]
+</code></pre>
+</p>
 
 <h3 id="section-3">ライブラリを使う</h3>
 
@@ -61,9 +76,9 @@
 </pre></div>
 </div>
 </div>
-<blockquote>
-  <p>Matrix[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]</p>
-</blockquote>
+<p>  <pre><code>=&gt; Matrix[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
+</code></pre>
+</p>
 
 <h3 id="tohtml">to_htmlを実装する</h3>
 
