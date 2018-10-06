@@ -38,10 +38,12 @@ class EvalDoc < Kramdown::Document
 
   def eval_and_elementize(code)
     stdout = StringIO.new
+
     $stdout = stdout
     eval_result = self.context.eval(code)
-    stdout_string = stdout.string.empty? ? '' : stdout.string + "\n"
     $stdout = STDOUT
+
+    stdout_string = stdout.string.empty? ? '' : stdout.string + "\n"
 
     case
     when eval_result.respond_to?(:to_html)
