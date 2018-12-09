@@ -2,6 +2,9 @@ require 'kramdown'
 require 'erb'
 require 'stringio'
 
+require 'optparse'
+
+
 def get_context
   binding
 end
@@ -61,10 +64,30 @@ class EvalDoc < Kramdown::Document
   end
 end
 
-def main # bindingを隔離するため
-  doc = EvalDoc.new(STDIN.read) # ERBの中で使っている
+def main # to separate binding
 
-  puts ERB.new(File.read('./template.html.erb')).result(binding)
+  options = {}
+  option_parser = OptionParser.new do |opts|
+    opts.on("-i INPUT") do |input|
+      options[:input] = input
+    end
+    opts.on("-e ERB") do |erb|
+      options[:erb] = erb
+    end
+    opts.on("-o OUTPUT") do |output|
+      options[:output] = output
+    end
+  end
+
+  option_parser.parse!
+  # puts options.inspect
+  # puts options[:input]
+  # puts options[:erb]
+  # puts options[:output]
+
+  doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
+  File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))
+#  puts ERB.new(File.read(options[:erb])).result(binding)
 end
 
 main
