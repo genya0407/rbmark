@@ -19,6 +19,14 @@ class Numo::NArray
   end
 end
 
+class Numo::Int32
+  def to_html
+    <<-HTML
+      #{self.to_a}
+    HTML
+  end
+end
+
 class Plotly::Plot
   def to_html
     html=create_html(@data, layout: @layout, embedded: false)
