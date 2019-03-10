@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,6 +16,7 @@
         display: none;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
   </head>
   <body>
     <article class='markdown-body'>
@@ -26,21 +26,15 @@
 
 <p>Now test the following:</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">bio</span><span style="color:#710">'</span></span>
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>seq = <span style="color:#036;font-weight:bold">Bio</span>::<span style="color:#036;font-weight:bold">Sequence</span>::<span style="color:#036;font-weight:bold">NA</span>.new(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">atgcatgcaaaa</span><span style="color:#710">&quot;</span></span>)
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">require 'bio'
+seq = Bio::Sequence::NA.new("atgcatgcaaaa")
+</code></pre>
 <p>  <pre><code>=&gt; atgcatgcaaaa
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.complement
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.complement
+</code></pre>
 <p>  <pre><code>=&gt; ttttgcatgcat
 </code></pre>
 </p>
@@ -51,126 +45,85 @@
 
 <p>In the example below the DNA sequence <code>atgcatgcaaaa</code> is converted into the complemental strand and spliced into a subsequence; next, the nucleic acid composition is calculated and the sequence is translated into the amino acid sequence, the molecular weight calculated, and so on. When translating into amino acid sequences, the frame can be specified and optionally the codon table selected (as defined in <a href="https://github.com/bioruby/bioruby/blob/master/lib/bio/data/codontable.rb">codontable.rb</a>).</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq = <span style="color:#036;font-weight:bold">Bio</span>::<span style="color:#036;font-weight:bold">Sequence</span>::<span style="color:#036;font-weight:bold">NA</span>.new(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">atgcatgcaaaa</span><span style="color:#710">&quot;</span></span>)
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq = Bio::Sequence::NA.new("atgcatgcaaaa")
+</code></pre>
 <p>  <pre><code>=&gt; atgcatgcaaaa
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#777"># complemental sequence (Bio::Sequence::NA object)</span>
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>seq.complement
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby"># complemental sequence (Bio::Sequence::NA object)
+seq.complement
+</code></pre>
 <p>  <pre><code>=&gt; ttttgcatgcat
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.subseq(<span style="color:#00D">3</span>,<span style="color:#00D">8</span>) <span style="color:#777"># gets subsequence of positions 3 to 8 (starting from 1)</span>
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.subseq(3,8) # gets subsequence of positions 3 to 8 (starting from 1)
+</code></pre>
 <p>  <pre><code>=&gt; gcatgc
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.gc_percent
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.gc_percent
+</code></pre>
 <p>  <pre><code>=&gt; 33
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.composition
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.composition
+</code></pre>
 <p>  <pre><code>=&gt; {"a"=&gt;6, "t"=&gt;2, "g"=&gt;2, "c"=&gt;2}
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate
+</code></pre>
 <p>  <pre><code>=&gt; MHAK
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate(<span style="color:#00D">2</span>)
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate(2)
+</code></pre>
 <p>  <pre><code>=&gt; CMQ
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate(<span style="color:#00D">1</span>,<span style="color:#00D">11</span>)
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate(1,11)
+</code></pre>
 <p>  <pre><code>=&gt; MHAK
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate.codes
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate.codes
+</code></pre>
 <p>  <pre><code>=&gt; ["Met", "His", "Ala", "Lys"]
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate.names
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate.names
+</code></pre>
 <p>  <pre><code>=&gt; ["methionine", "histidine", "alanine", "lysine"]
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate.composition
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate.composition
+</code></pre>
 <p>  <pre><code>=&gt; {"M"=&gt;1, "H"=&gt;1, "A"=&gt;1, "K"=&gt;1}
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.translate.molecular_weight
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.translate.molecular_weight
+</code></pre>
 <p>  <pre><code>=&gt; 485.6050000000001
 </code></pre>
 </p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>seq.complement.translate
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">seq.complement.translate
+</code></pre>
 <p>  <pre><code>=&gt; FCMH
 </code></pre>
 </p>
 
-
     </article>
   </body>
 </html>
-

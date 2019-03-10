@@ -16,6 +16,7 @@
         display: none;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
   </head>
   <body>
     <article class='markdown-body'>
@@ -25,27 +26,21 @@
 
 <p><em>~~~ruby</em> と <em>~~~</em> でコードを囲むと、そのブロックが評価される。</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>array = [<span style="color:#00D">1</span>,<span style="color:#00D">2</span>,<span style="color:#00D">3</span>,<span style="color:#00D">4</span>]
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>converted = array.map { |e| e * <span style="color:#00D">100</span> }
-<span class="line-numbers"><a href="#n3" name="n3">3</a></span>
-<span class="line-numbers"><a href="#n4" name="n4">4</a></span>converted <span style="color:#777"># 最後の行が出力される</span>
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">array = [1,2,3,4]
+converted = array.map { |e| e * 100 }
+
+converted # 最後の行が出力される
+</code></pre>
 <p>  <pre><code>=&gt; [100, 200, 300, 400]
 </code></pre>
 </p>
 
 <p>標準出力も表示される</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>puts <span style="color:#A60">:hoge</span>
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
-<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fuga</span><span style="color:#b0b">\n</span><span style="color:#D20">piyo</span><span style="color:#710">&quot;</span></span>.inspect
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">puts :hoge
+
+"fuga\npiyo".inspect
+</code></pre>
 <p>  <pre><code>hoge
 
 =&gt; "fuga\npiyo"
@@ -56,11 +51,8 @@
 
 <p>先程定義した変数<code>converted</code>が以下でも使える。</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>converted.map { |e| e / <span style="color:#00D">100</span> }
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">converted.map { |e| e / 100 }
+</code></pre>
 <p>  <pre><code>=&gt; [1, 2, 3, 4]
 </code></pre>
 </p>
@@ -69,13 +61,10 @@
 
 <p>もちろん外部のライブラリをロードすることもできる。</p>
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">matrix</span><span style="color:#710">'</span></span>
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
-<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#036;font-weight:bold">Matrix</span>.identity(<span style="color:#00D">10</span>)
-</pre></div>
-</div>
-</div>
+<pre><code class="language-ruby">require 'matrix'
+
+Matrix.identity(10)
+</code></pre>
 <p>  <pre><code>=&gt; Matrix[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
 </code></pre>
 </p>
@@ -84,25 +73,20 @@
 
 <p><code>to_html</code> メソッドを実装すると、その結果が出力される。</p>
 
-<p><code>to_html</code> が存在しない場合、<code>to_s</code>と<code>inspect</code>を試す。</p>
+<pre><code class="language-ruby">class Matrix # オープンクラス
+  def to_html
+    rows = self.to_a.map do |row|
+      elems = row.map do |elem|
+        "&lt;td&gt;#{elem}&lt;/td&gt;"
+      end
+      "&lt;tr&gt;#{elems}&lt;/tr&gt;"
+    end
+    "&lt;table&gt;#{rows.join}&lt;/table&gt;"
+  end
+end
 
-<div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Matrix</span> <span style="color:#777"># オープンクラス</span>
-<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">to_html</span>
-<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    rows = <span style="color:#069">self</span>.to_a.map <span style="color:#080;font-weight:bold">do</span> |row|
-<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>      elems = row.map <span style="color:#080;font-weight:bold">do</span> |elem|
-<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>        <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>elem<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">&lt;/td&gt;</span><span style="color:#710">&quot;</span></span>
-<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      <span style="color:#080;font-weight:bold">end</span>
-<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>      <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">&lt;tr&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>elems<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">&lt;/tr&gt;</span><span style="color:#710">&quot;</span></span>
-<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#080;font-weight:bold">end</span>
-<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">&lt;table&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>rows.join<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">&lt;/table&gt;</span><span style="color:#710">&quot;</span></span>
-<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
-<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">end</span>
-<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
-<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#036;font-weight:bold">Matrix</span>.identity(<span style="color:#00D">10</span>)
-</pre></div>
-</div>
-</div>
+Matrix.identity(10)
+</code></pre>
   <table>
     <tbody>
       <tr>
