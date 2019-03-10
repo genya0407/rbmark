@@ -14,13 +14,17 @@ end
 
 class EvalDoc < Kramdown::Document
   attr_accessor :context, :stdout
+  attr_reader :javascripts
 
   def initialize(text, *opts)
     super(text, *opts)
 
+    @javascripts = {}
     self.context = get_context
     self.root = scan_el(self.root)
   end
+
+  REQUIREJS_SCRIPT_TAG = '<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>'
 
   private
   def scan_el(el)
@@ -34,6 +38,7 @@ class EvalDoc < Kramdown::Document
       if is_code && child_el.options[:lang] == 'ruby'
         code = child_el.value.gsub(/^ *ruby *\n/, '')
         new_children << eval_and_elementize(code)
+        @javascripts[:requirejs] ||= REQUIREJS_SCRIPT_TAG
       end
     end
 
