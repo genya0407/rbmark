@@ -27,13 +27,6 @@ class Numo::Int32
   end
 end
 
-class Plotly::Plot
-  def to_html
-    html=create_html(@data, layout: @layout, embedded: false)
-    html.render
-  end
-end
-
 module Rubydown
   class RbMarkPlot < Numo::Gnuplot
     def plot(*args)
