@@ -25,9 +25,12 @@ class EvalDoc < Kramdown::Document
   end
 
   REQUIREJS_SCRIPT_TAG = '<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>'
+  MATHJAX_SCRIPT_TAG = "<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>"
 
   private
   def scan_el(el)
+    @javascripts[:mathjax] ||= MATHJAX_SCRIPT_TAG if el.type == :math
+
     new_children = []
     el.children.each do |child_el|
       child_el = scan_el(child_el)
