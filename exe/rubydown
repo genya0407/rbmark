@@ -70,6 +70,7 @@ end
 def main # to separate binding
 
   options = {}
+  options[:erb] = File.expand_path('../../templates/template.html.erb', __FILE__)
   option_parser = OptionParser.new do |opts|
     opts.on("-i INPUT") do |input|
       options[:input] = input
