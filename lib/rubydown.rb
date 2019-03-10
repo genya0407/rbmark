@@ -9,21 +9,23 @@ require 'tempfile'
 
 class Numo::NArray
   def to_html
-    rows = self.to_a.map do |row|
-      elems = row.map do |elem|
+    case ndim
+    when 2
+      rows = self.to_a.map do |row|
+        elems = row.map do |elem|
+          "<td>#{elem}</td>"
+        end
+        "<tr>#{elems.join}</tr>"
+      end
+      "<table>#{rows.join}</table>"
+    when 1
+      cols = self.to_a.map do |elem|
         "<td>#{elem}</td>"
       end
-      "<tr>#{elems.join}</tr>"
+      "<table><tr>#{cols.join}</tr></table>"
+    else
+      inspect
     end
-    "<table>#{rows.join}</table>"
-  end
-end
-
-class Numo::Int32
-  def to_html
-    <<-HTML
-      #{self.to_a}
-    HTML
   end
 end
 
