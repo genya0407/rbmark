@@ -72,17 +72,21 @@ def main # to separate binding
   options = {}
   options[:erb] = File.expand_path('../../templates/template.html.erb', __FILE__)
   option_parser = OptionParser.new do |opts|
-    opts.on("-i INPUT") do |input|
+    opts.on("-i INPUT", "Input form the file") do |input|
       options[:input] = input
     end
-    opts.on("-e ERB") do |erb|
+    opts.on("-e ERB", "Specify template file") do |erb|
       options[:erb] = erb
     end
-    opts.on("-o OUTPUT") do |output|
+    opts.on("-o OUTPUT", "Output html to OUTPUT") do |output|
       options[:output] = output
     end
+    opts.on("-h", "--help", "Prints this help") do
+      puts opts
+      exit
+    end
     opts.on_tail("--version", "Show version") do
-      puts "0.1.0"
+      puts Rubydown::VERSION
       exit
     end
   end
@@ -92,6 +96,15 @@ def main # to separate binding
   # puts options[:input]
   # puts options[:erb]
   # puts options[:output]
+
+  case options[:input]
+  when /\.md\z/i
+    options[:output] ||= options[:input].sub(/\.md\z/i, '.html')
+  when /./
+    abort("Input file must be markdown (*.md)")
+  else
+    abort(option_parser.help)
+  end
 
   doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
   File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))
