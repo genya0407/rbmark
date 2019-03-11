@@ -27,5 +27,5 @@ gem install rubydown
 gem install rumale rdatasets
 git clone git://github.com/sciruby-jp/rubydown
 cd rubydown/examples
-rubydown -i rumale.md -o rumale.html
+rubydown -i rumale.md
 ```
