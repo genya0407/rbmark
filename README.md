@@ -18,8 +18,7 @@ https://github.com/pystitch/stitch
 
 ```
 apt install gnuplot # When you use numo-gnuplot in your workflow markdown
-gem install specific_install
-gem specific_install https://github.com/sciruby-jp/rubydown
+gem install rubydown
 ```
 
 ## Usage (example with [rumale](https://github.com/yoshoku/rumale) and [rdatasets](https://github.com/kojix2/rdatasets))
