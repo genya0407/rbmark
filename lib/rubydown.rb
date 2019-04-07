@@ -5,6 +5,7 @@ require 'rbplotly'
 require 'numo/gnuplot'
 require 'base64'
 require 'tempfile'
+require 'charty'
 
 
 class Numo::NArray
@@ -28,6 +29,17 @@ class Numo::NArray
     end
   end
 end
+
+Charty::RenderContext.prepend Module.new {
+  def render(filename=nil)
+    super
+    if filename.nil?
+      p "The image could not be rendered. In the environment without IRuby, the file name for the charty render method is required."
+    else
+      File.open(filename)
+    end
+  end
+}
 
 module Rubydown
   class RbMarkPlot < Numo::Gnuplot
