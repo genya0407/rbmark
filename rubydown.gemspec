@@ -6,8 +6,8 @@ require "rubydown/version"
 Gem::Specification.new do |spec|
   spec.name          = "rubydown"
   spec.version       = Rubydown::VERSION
-  spec.authors       = ["Kozo Nishida"]
-  spec.email         = ["knishida@riken.jp"]
+  spec.authors       = ["Yusuke Sangenya", "Kozo Nishida", "Kazuhiro Nishiyama"]
+  spec.email         = ["kozo.nishida@gmail.com"]
   spec.license       = 'MIT'
   spec.summary       = "Pure Ruby R Markdown clone."
   spec.description   = "rubydown is R Markdown clone for Rubyists."
@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "numo-narray", "~> 0.9.1"
   spec.add_dependency "numo-gnuplot", "~> 0.2.4"
   spec.add_dependency "rbplotly", "~> 0.1.2"
-  spec.add_dependency "charty", "0.1.1.dev"
+  spec.add_dependency "charty", "0.1.2.dev"
   spec.add_dependency "matplotlib", "~> 1.0.0"
 
   spec.add_development_dependency "bundler", "~> 1.17"
