@@ -2,7 +2,7 @@
 install:
   - set PATH=C:\Ruby25-x64\bin;%PATH%
   - gem build rubydown.gemspec
-  - gem install rubydown-0.1.0.gem
+  - gem install rubydown-0.2.0.gem
 
 build: off
 
@@ -20,6 +20,6 @@ test_script:
   - rubydown -i examples\bio.md -e templates\template.html.erb -o bio.html
   - rubydown -i examples\graph.md -e templates\template.html.erb -o graph.html
   - rubydown -i examples\table.md -e templates\template.html.erb -o table.html
-  
+
 artifacts:
   - path: '*.html'

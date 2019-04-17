@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
        - image: ruby
-      
+
     working_directory: ~/repo
 
     steps:
@@ -19,9 +19,9 @@ jobs:
             apt-get update
             apt-get install -y gnuplot
             gem build rubydown.gemspec
-            gem install rubydown-0.1.0.gem
+            gem install rubydown-0.2.0.gem
             gem install bio
-            
+
       # run tests!
       - run:
           name: run tests
@@ -29,7 +29,7 @@ jobs:
             rubydown -i examples/bio.md -e templates/template.html.erb -o /tmp/bio.html
             rubydown -i examples/table.md -e templates/template.html.erb -o /tmp/table.html
             rubydown -i examples/graph.md -e templates/template.html.erb -o /tmp/graph.html
-            
+
       # collect reports
       - store_artifacts:
           path: /tmp
