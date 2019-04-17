@@ -17,7 +17,11 @@ https://github.com/pystitch/stitch
 ## Install
 
 ```
-apt install gnuplot # When you use numo-gnuplot in your workflow markdown
+sudo apt install gnuplot # When you use numo-gnuplot with rubydown
+
+sudo apt install python3-pip # When you use charty with rubydown
+sudo python3 -m pip install -U pip matplotlib # When you use charty with rubydown
+
 gem install rubydown
 ```
 
