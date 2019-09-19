@@ -9,9 +9,9 @@ It takes a markdown source file, executes the code chunks, captures the output, 
 Python also has R Markdown like packages.
 If you have interest about making reproducible reports, please also refer to the following projects.
 
-https://github.com/jankatins/knitpy
-
-https://github.com/pystitch/stitch
+https://github.com/jankatins/knitpy  
+https://github.com/pystitch/stitch  
+https://github.com/danijar/handout 
 
 
 ## Install
