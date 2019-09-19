@@ -29,7 +29,7 @@ gem install rubydown
 
 ```
 gem install rumale rdatasets
-git clone git://github.com/sciruby-jp/rubydown
+git clone git://github.com/RubyData/rubydown
 cd rubydown/examples
 rubydown -i rumale.md
 ```
