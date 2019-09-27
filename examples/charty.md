@@ -9,7 +9,7 @@
 ~~~ruby
 
 require 'charty'
-charty = Charty.new(:matplot)
+charty = Charty.new(:pyplot)
 
 bar = charty.bar do
   series [0,1,2,3,4], [10,40,20,90,70]
