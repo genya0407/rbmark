@@ -81,7 +81,7 @@ class EvalDoc < Kramdown::Document
   end
 
   def text_result_el(text)
-    text_el = Kramdown::Element.new(:codeblock, text)
+    text_el = Kramdown::Document.new("<pre><code class='language-plaintext'>#{text}</code></pre>", input: :html).root
     p_el = Kramdown::Element.new(:p)
     p_el.children << text_el
     p_el
