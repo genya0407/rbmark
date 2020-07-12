@@ -5,6 +5,7 @@ require 'erb'
 require 'stringio'
 require 'base64'
 require 'optparse'
+require 'listen'
 
 require 'rubydown'
 
@@ -94,6 +95,9 @@ def main # to separate binding
     opts.on("-i INPUT", "Input form the file") do |input|
       options[:input] = input
     end
+    opts.on("--watch", "Watch file") do
+      options[:watch] = true
+    end
     opts.on("-e ERB", "Specify template file") do |erb|
       options[:erb] = erb
     end
@@ -125,8 +129,22 @@ def main # to separate binding
     abort(option_parser.help)
   end
 
-  doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
-  File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))
+  if options[:watch]
+    doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
+    File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))
+
+    listener = Listen.to(File.dirname(options[:input])) do |modifieds, _, _|
+      if modifieds.any? { |modified| modified == File.absolute_path(options[:input]) }
+        doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
+        File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))  
+      end
+    end
+    listener.start
+    sleep
+  else
+    doc = EvalDoc.new(File.read(options[:input], encoding: 'utf-8')) # using in ERB
+    File.write(options[:output], ERB.new(File.read(options[:erb])).result(binding))
+  end
 #  puts ERB.new(File.read(options[:erb])).result(binding)
 end
 
