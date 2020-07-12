@@ -14,8 +14,22 @@
         padding: 45px;
       }
 
+      article.markdown-body > :first-child {
+        margin-top: 1em !important;
+      }
+
       span.line-numbers {
         display: none;
+      }
+
+      pre.has-language-ruby::before {
+        content: 'ruby';
+        padding: 0.5em;
+        background: #f0f0f0;
+      }
+
+      pre.has-language-ruby {
+        margin-top: 5em;
       }
     </style>
     <%= doc.javascripts.values.join('') %>
@@ -24,5 +38,11 @@
     <article class='markdown-body'>
       <%= doc.to_html %>
     </article>
+
+    <script>
+      Array.from(document.querySelectorAll('code.language-ruby')).forEach(code_elem => {
+        code_elem.parentNode.classList.add("has-language-ruby")
+      });
+    </script>
   </body>
 </html>

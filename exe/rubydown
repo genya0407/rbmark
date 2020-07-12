@@ -35,15 +35,13 @@ class EvalDoc < Kramdown::Document
 
     new_children = []
     el.children.each do |child_el|
-      child_el = scan_el(child_el)
-      new_children << child_el
-
-      is_code = child_el.type == :codeblock || child_el.type == :codespan
-
-      if is_code && child_el.options[:lang] == 'ruby'
+      if (child_el.type == :codeblock || child_el.type == :codespan) && child_el.options[:lang] == 'ruby'
+        new_children << scan_el(child_el)
         code = child_el.value.gsub(/^ *ruby *\n/, '')
         new_children << eval_and_elementize(code) unless @exception_raised
         @javascripts[:requirejs] ||= REQUIREJS_SCRIPT_TAG
+      else
+        new_children << scan_el(child_el)
       end
     end
 
