@@ -22,6 +22,7 @@ class EvalDoc < Kramdown::Document
     @javascripts = {}
     self.context = get_context
     self.root = scan_el(self.root)
+    @exception_raised = false
   end
 
   REQUIREJS_SCRIPT_TAG = '<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>'
@@ -40,7 +41,7 @@ class EvalDoc < Kramdown::Document
 
       if is_code && child_el.options[:lang] == 'ruby'
         code = child_el.value.gsub(/^ *ruby *\n/, '')
-        new_children << eval_and_elementize(code)
+        new_children << eval_and_elementize(code) unless @exception_raised
         @javascripts[:requirejs] ||= REQUIREJS_SCRIPT_TAG
       end
     end
@@ -54,12 +55,19 @@ class EvalDoc < Kramdown::Document
     stdout = StringIO.new
 
     $stdout = stdout
-    eval_result = self.context.eval(code)
+    eval_result = begin
+      self.context.eval(code)
+    rescue Exception => e
+      @exception_raised = true
+      e
+    end
     $stdout = STDOUT
 
     stdout_string = stdout.string.empty? ? '' : stdout.string + "\n"
 
     case
+    when eval_result.is_a?(Exception)
+      text_result_el(eval_result.inspect)
     when eval_result.respond_to?(:to_html)
       Kramdown::Document.new(eval_result.to_html, input: :html).root
     when eval_result.instance_of?(File) && File.extname(eval_result.path) == ".png"
