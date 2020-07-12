@@ -58,7 +58,10 @@ class EvalDoc < Kramdown::Document
       self.context.eval(code)
     rescue Exception => e
       @exception_raised = true
-      e
+      <<~HERE
+      #{e}
+      #{e.backtrace.join("\n")}
+      HERE
     end
     $stdout = STDOUT
 
